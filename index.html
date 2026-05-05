@@ -1,501 +1,37 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-Hant">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#f7f4ef">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="?疏銵??">
+    <meta name="apple-mobile-web-app-title" content="搜貨衣櫃">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>?疏銵??</title>
-    <style>
-:root {
-  color-scheme: light;
-  --paper: #f7f4ef;
-  --ink: #202225;
-  --muted: #707070;
-  --line: #ded7cc;
-  --panel: #ffffff;
-  --accent: #0f766e;
-  --accent-strong: #115e59;
-  --rose: #b94b5f;
-  --gold: #b7791f;
-  --blue: #315c99;
-  --shadow: 0 14px 36px rgba(32, 34, 37, 0.1);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  min-height: 100%;
-  background: var(--paper);
-}
-
-body {
-  min-height: 100%;
-  margin: 0;
-  color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", Arial, sans-serif;
-  letter-spacing: 0;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-button {
-  border: 0;
-  cursor: pointer;
-}
-
-.app-shell {
-  width: min(980px, 100%);
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: max(18px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
-}
-
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 8px 2px 18px;
-}
-
-.eyebrow {
-  margin: 0 0 3px;
-  color: var(--accent-strong);
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-h1,
-h2 {
-  margin: 0;
-  line-height: 1.15;
-}
-
-h1 {
-  font-size: clamp(2rem, 9vw, 3.6rem);
-}
-
-h2 {
-  font-size: 1.12rem;
-}
-
-.icon-button {
-  width: 44px;
-  height: 44px;
-  flex: 0 0 44px;
-  border-radius: 8px;
-  background: var(--ink);
-  color: #fff;
-  font-weight: 900;
-  box-shadow: var(--shadow);
-}
-
-.summary-band {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.summary-band div {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  padding: 12px;
-}
-
-.summary-band span {
-  display: block;
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 800;
-}
-
-.summary-band strong {
-  display: block;
-  margin-top: 4px;
-  color: var(--ink);
-  font-size: 1.35rem;
-}
-
-.workspace,
-.tab-panel {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: var(--shadow);
-}
-
-.workspace {
-  overflow: hidden;
-}
-
-.search-panel {
-  padding: 16px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-}
-
-label span {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-input,
-select,
-textarea {
-  width: 100%;
-  min-height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fffdf9;
-  color: var(--ink);
-  padding: 10px 12px;
-  outline: none;
-}
-
-textarea {
-  min-height: 150px;
-  resize: vertical;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.14);
-}
-
-.platforms {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 8px;
-  margin: 14px 0;
-}
-
-.platforms label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-height: 42px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fbfaf7;
-  font-weight: 800;
-}
-
-.platforms input {
-  width: 17px;
-  min-height: 17px;
-  accent-color: var(--accent);
-}
-
-.actions {
-  display: flex;
-  gap: 10px;
-}
-
-.primary,
-.secondary,
-.text-button,
-.mini-form button {
-  min-height: 44px;
-  border-radius: 8px;
-  padding: 0 16px;
-  font-weight: 900;
-}
-
-.primary {
-  flex: 1;
-  background: var(--accent);
-  color: #fff;
-}
-
-.secondary {
-  flex: 1;
-  background: #efe8dc;
-  color: var(--ink);
-}
-
-.text-button {
-  background: #f4efe6;
-  color: var(--accent-strong);
-}
-
-.result-strip {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--line);
-  border-top: 1px solid var(--line);
-}
-
-.result-link {
-  display: flex;
-  min-height: 58px;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  color: var(--blue);
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  font-weight: 900;
-}
-
-.tabs {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 8px;
-  margin: 14px 0;
-}
-
-.tab {
-  min-height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  color: var(--muted);
-  font-weight: 900;
-}
-
-.tab.active {
-  border-color: var(--accent);
-  background: #e8f3ef;
-  color: var(--accent-strong);
-}
-
-.tab-panel {
-  display: none;
-  padding: 16px;
-}
-
-.tab-panel.active {
-  display: block;
-}
-
-.section-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.list {
-  display: grid;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fffdf9;
-  padding: 12px;
-}
-
-.item strong {
-  display: block;
-  overflow-wrap: anywhere;
-}
-
-.item small {
-  display: block;
-  margin-top: 5px;
-  color: var(--muted);
-}
-
-.item-actions {
-  display: flex;
-  gap: 6px;
-}
-
-.item-actions button,
-.item-actions a {
-  display: inline-flex;
-  min-width: 42px;
-  min-height: 38px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  background: #f0ece5;
-  color: var(--ink);
-  text-decoration: none;
-  font-weight: 900;
-}
-
-.item-actions .danger {
-  background: #f8e7e9;
-  color: var(--rose);
-}
-
-.empty {
-  border: 1px dashed var(--line);
-  border-radius: 8px;
-  color: var(--muted);
-  padding: 20px;
-  text-align: center;
-}
-
-.mini-form {
-  display: grid;
-  grid-template-columns: 1.15fr 0.55fr 0.65fr 1.2fr auto;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.mini-form button {
-  background: var(--ink);
-  color: #fff;
-}
-
-.calculator {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.score-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.score-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 14px;
-  border-radius: 8px;
-  background: #e8f3ef;
-  padding: 16px;
-}
-
-.score-box strong {
-  color: var(--accent-strong);
-  font-size: 2.4rem;
-}
-
-.score-box span {
-  color: var(--ink);
-  font-weight: 900;
-}
-
-.profit-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 14px;
-  border-radius: 8px;
-  background: #f4efe6;
-  padding: 16px;
-}
-
-.profit-box strong {
-  color: var(--accent-strong);
-  font-size: 1.8rem;
-}
-
-.profit-box small {
-  color: var(--gold);
-  font-weight: 800;
-}
-
-@media (max-width: 720px) {
-  .app-shell {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .form-grid,
-  .platforms,
-  .result-strip,
-  .calculator,
-  .score-grid,
-  .mini-form {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .mini-form input:first-child,
-  .mini-form input:nth-child(4) {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 430px) {
-  .actions {
-    flex-direction: column;
-  }
-
-  .tabs {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
-  }
-
-  .tab {
-    padding: 0 6px;
-    font-size: 0.92rem;
-  }
-
-  .item {
-    grid-template-columns: 1fr;
-  }
-
-  .summary-band {
-    grid-template-columns: 1fr;
-  }
-}
-
-</style>
+    <title>搜貨衣櫃</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <main class="app-shell">
       <header class="topbar">
         <div>
           <p class="eyebrow">Secondhand Scout</p>
-          <h1>?疏銵??</h1>
+          <h1>搜貨衣櫃</h1>
         </div>
-        <button class="icon-button" id="notifyButton" type="button" aria-label="????" title="????">!</button>
+        <button class="icon-button" id="notifyButton" type="button" aria-label="開啟提醒" title="開啟提醒">!</button>
       </header>
 
-      <section class="summary-band" aria-label="隞??">
+      <section class="summary-band" aria-label="今日摘要">
         <div>
-          <span>??</span>
+          <span>監控</span>
           <strong id="monitorCount">0</strong>
         </div>
         <div>
-          <span>?嗉?</span>
+          <span>收藏</span>
           <strong id="favoriteCount">0</strong>
         </div>
         <div>
-          <span>撟喳?銝?</span>
+          <span>平均上限</span>
           <strong id="averageBudget">$0</strong>
         </div>
       </section>
@@ -504,652 +40,144 @@ textarea:focus {
         <form class="search-panel" id="searchForm">
           <div class="form-grid">
             <label>
-              <span>??撱箄降</span>
+              <span>品牌建議</span>
               <select id="brandPresetInput" name="brandPreset"></select>
             </label>
             <label>
-              <span>??</span>
+              <span>品牌</span>
               <input id="brandInput" name="brand" type="text" value="a la sha" autocomplete="off">
             </label>
             <label>
-              <span>?儔摮?/span>
-              <input id="aliasInput" name="alias" type="text" value="?輯瓷 alasha" autocomplete="off">
+              <span>同義字</span>
+              <input id="aliasInput" name="alias" type="text" value="阿財 alasha" autocomplete="off">
             </label>
             <label>
-              <span>?擃</span>
+              <span>最高價</span>
               <input id="priceInput" name="price" type="number" min="0" step="10" value="300">
             </label>
             <label>
-              <span>?摯鞈?</span>
+              <span>預估賣價</span>
               <input id="targetSellInput" name="targetSell" type="number" min="0" step="10" value="690">
             </label>
             <label>
-              <span>??</span>
+              <span>品項</span>
               <select id="categoryInput" name="category">
-                <option value="鈭? 銵??">鈭?銵??</option>
-                <option value="鈭? 銝﹝">銝﹝</option>
-                <option value="鈭? 瘣?">瘣?</option>
-                <option value="鈭? 憭?">憭?</option>
-                <option value="鈭? 鋆?">鋆?</option>
-                <option value="鈭? ??>??</option>
+                <option value="二手 衣服">二手衣服</option>
+                <option value="二手 上衣">上衣</option>
+                <option value="二手 洋裝">洋裝</option>
+                <option value="二手 外套">外套</option>
+                <option value="二手 裙子">裙子</option>
+                <option value="二手 包">包包</option>
               </select>
             </label>
             <label>
-              <span>?</span>
-              <input id="excludeInput" name="exclude" type="text" value="蝡亥? ?冽擃" autocomplete="off">
+              <span>排除</span>
+              <input id="excludeInput" name="exclude" type="text" value="童裝 全新高價" autocomplete="off">
             </label>
           </div>
 
-          <div class="platforms" aria-label="撟喳">
-            <label><input type="checkbox" name="platform" value="shopee" checked>?衣</label>
+          <div class="platforms" aria-label="平台">
+            <label><input type="checkbox" name="platform" value="shopee" checked>蝦皮</label>
             <label><input type="checkbox" name="platform" value="yahoo" checked>Yahoo</label>
-            <label><input type="checkbox" name="platform" value="ruten" checked>?脣予</label>
-            <label><input type="checkbox" name="platform" value="carousell" checked>??</label>
+            <label><input type="checkbox" name="platform" value="ruten" checked>露天</label>
+            <label><input type="checkbox" name="platform" value="carousell" checked>旋轉</label>
             <label><input type="checkbox" name="platform" value="google" checked>Google</label>
           </div>
 
           <div class="actions">
-            <button class="primary" type="submit">?洵銝?像??/button>
-            <button class="secondary" id="saveMonitorButton" type="button">???</button>
+            <button class="primary" type="submit">搜尋全部</button>
+            <button class="secondary" id="saveMonitorButton" type="button">加入監控</button>
           </div>
         </form>
 
         <section class="result-strip" id="resultStrip" aria-live="polite"></section>
       </section>
 
-      <nav class="tabs" aria-label="?">
-        <button class="tab active" data-tab="monitors" type="button">??</button>
-        <button class="tab" data-tab="favorites" type="button">?嗉?</button>
-        <button class="tab" data-tab="score" type="button">閰?</button>
-        <button class="tab" data-tab="profit" type="button">?拇膜</button>
-        <button class="tab" data-tab="message" type="button">霅啣</button>
-        <button class="tab" data-tab="data" type="button">鞈?</button>
+      <nav class="tabs" aria-label="功能">
+        <button class="tab active" data-tab="monitors" type="button">監控</button>
+        <button class="tab" data-tab="favorites" type="button">收藏</button>
+        <button class="tab" data-tab="score" type="button">評分</button>
+        <button class="tab" data-tab="profit" type="button">利潤</button>
+        <button class="tab" data-tab="message" type="button">議價</button>
+        <button class="tab" data-tab="data" type="button">資料</button>
       </nav>
 
       <section class="tab-panel active" id="monitors">
         <div class="section-head">
-          <h2>??皜</h2>
-          <button class="text-button" id="scanAllButton" type="button">頛蝚砌?蝑?/button>
+          <h2>監控清單</h2>
+          <button class="text-button" id="scanAllButton" type="button">全部掃描</button>
         </div>
         <div class="list" id="monitorList"></div>
       </section>
 
       <section class="tab-panel" id="favorites">
         <div class="section-head">
-          <h2>?嗉???</h2>
-          <button class="text-button" id="clearFavoritesButton" type="button">皜征</button>
+          <h2>收藏商品</h2>
+          <button class="text-button" id="clearFavoritesButton" type="button">清空</button>
         </div>
         <form class="mini-form" id="favoriteForm">
-          <input id="favoriteTitle" type="text" placeholder="???迂">
-          <input id="favoritePrice" type="number" min="0" step="10" placeholder="?寞">
-          <input id="favoriteSell" type="number" min="0" step="10" placeholder="?摯?桀">
-          <input id="favoriteUrl" type="url" placeholder="蝬脣?">
-          <button type="submit">摮?/button>
+          <input id="favoriteTitle" type="text" placeholder="商品名稱">
+          <input id="favoritePrice" type="number" min="0" step="10" placeholder="價格">
+          <input id="favoriteSell" type="number" min="0" step="10" placeholder="預估售價">
+          <input id="favoriteUrl" type="url" placeholder="網址">
+          <button type="submit">存</button>
         </form>
         <div class="list" id="favoriteList"></div>
       </section>
 
       <section class="tab-panel" id="score">
-        <h2>?嗉疏閰?</h2>
+        <h2>收貨評分</h2>
         <div class="score-grid">
-          <label><span>?脰疏??/span><input id="scoreBuy" type="number" min="0" value="250"></label>
-          <label><span>?摯?桀</span><input id="scoreSell" type="number" min="0" value="690"></label>
-          <label><span>銵??</span><select id="scoreCondition"><option value="30">餈</option><option value="22">銋暹楊</option><option value="12">?桅?/option><option value="0">??渡?</option></select></label>
-          <label><span>?瘙?/span><select id="scoreDemand"><option value="28">擃?/option><option value="20">銝?/option><option value="10">雿?/option></select></label>
-          <label><span>撠箇Ⅳ</span><select id="scoreSize"><option value="16">M/L/XL</option><option value="10">F</option><option value="7">S/XS</option></select></label>
-          <label><span>甈曉?</span><select id="scoreStyle"><option value="16">憭?/瘣?</option><option value="12">镼航‵/鋆仆</option><option value="7">?桅?銵?/option></select></label>
+          <label><span>進貨價</span><input id="scoreBuy" type="number" min="0" value="250"></label>
+          <label><span>預估售價</span><input id="scoreSell" type="number" min="0" value="690"></label>
+          <label><span>衣況</span><select id="scoreCondition"><option value="30">近新</option><option value="22">乾淨</option><option value="12">普通</option><option value="0">需整理</option></select></label>
+          <label><span>需求</span><select id="scoreDemand"><option value="28">高</option><option value="20">中</option><option value="10">低</option></select></label>
+          <label><span>尺碼</span><select id="scoreSize"><option value="16">M/L/XL</option><option value="10">F</option><option value="7">S/XS</option></select></label>
+          <label><span>款式</span><select id="scoreStyle"><option value="16">外套/洋裝</option><option value="12">襯衫/裙褲</option><option value="7">普通上衣</option></select></label>
         </div>
         <div class="score-box">
           <strong id="scoreValue">0</strong>
-          <span id="scoreLabel">???抒?</span>
+          <span id="scoreLabel">先看照片</span>
         </div>
       </section>
 
       <section class="tab-panel" id="profit">
-        <h2>?拇膜閰衣?</h2>
+        <h2>利潤試算</h2>
         <div class="calculator">
-          <label><span>?脰疏</span><input id="buyCost" type="number" min="0" value="200"></label>
-          <label><span>?桀</span><input id="sellPrice" type="number" min="0" value="590"></label>
-          <label><span>?祥/皜?</span><input id="extraCost" type="number" min="0" value="60"></label>
-          <label><span>撟喳鞎?</span><input id="feeRate" type="number" min="0" value="6"></label>
+          <label><span>進貨</span><input id="buyCost" type="number" min="0" value="200"></label>
+          <label><span>售價</span><input id="sellPrice" type="number" min="0" value="590"></label>
+          <label><span>運費/清潔</span><input id="extraCost" type="number" min="0" value="60"></label>
+          <label><span>平台費%</span><input id="feeRate" type="number" min="0" value="6"></label>
         </div>
         <div class="profit-box">
-          <span>?摯瘛典</span>
+          <span>預估淨利</span>
           <strong id="profitValue">$0</strong>
           <small id="profitNote"></small>
         </div>
       </section>
 
       <section class="tab-panel" id="message">
-        <h2>霅啣??</h2>
+        <h2>議價文字</h2>
         <textarea id="messageText" rows="7"></textarea>
         <div class="actions">
-          <button class="primary" id="copyMessageButton" type="button">銴ˊ</button>
-          <button class="secondary" id="refreshMessageButton" type="button">?神</button>
+          <button class="primary" id="copyMessageButton" type="button">複製</button>
+          <button class="secondary" id="refreshMessageButton" type="button">重寫</button>
         </div>
       </section>
 
       <section class="tab-panel" id="data">
         <div class="section-head">
-          <h2>鞈??遢</h2>
-          <button class="text-button" id="exportButton" type="button">?臬</button>
+          <h2>資料備份</h2>
+          <button class="text-button" id="exportButton" type="button">匯出</button>
         </div>
-        <textarea id="dataBox" rows="8" placeholder="?臬?????曉?ㄐ"></textarea>
+        <textarea id="dataBox" rows="8" placeholder="匯出的資料會放在這裡"></textarea>
         <div class="actions">
-          <button class="primary" id="importButton" type="button">?臬</button>
-          <button class="secondary" id="resetButton" type="button">?Ｗ儔蝭?</button>
+          <button class="primary" id="importButton" type="button">匯入</button>
+          <button class="secondary" id="resetButton" type="button">恢復範例</button>
         </div>
       </section>
     </main>
 
-    <script>
-const brandPresets = [
-  {
-    name: "a la sha",
-    aliases: "?輯瓷 alasha",
-    price: 300,
-    targetSell: 690,
-    category: "鈭? 銵??",
-    exclude: "蝡亥? ?冽擃",
-    note: "??蝯脣恥蝢歹??輯瓷???蝜～?鋆?憟??
-  },
-  {
-    name: "SCOTTISH HOUSE",
-    aliases: "??剖? ScottishHouse",
-    price: 400,
-    targetSell: 790,
-    category: "鈭? 憭?",
-    exclude: "蝡亥? ?",
-    note: "?翩撠?摰Ｙ黎嚗/XL??憟?蝜蝝狡瘥??澆???
-  },
-  {
-    name: "UNIQLO",
-    aliases: "?芾﹝摨?UQ",
-    price: 250,
-    targetSell: 490,
-    category: "鈭? 憭?",
-    exclude: "? 瘜?",
-    note: "?刻?敹恬?蝢賜筐??祝銴脯弁銵怠??
-  },
-  {
-    name: "GU",
-    aliases: "g.u.",
-    price: 180,
-    targetSell: 390,
-    category: "鈭? 銵??",
-    exclude: "?",
-    note: "?桀雿?敹恬??拙?憭辣靘踹??嗚?
-  },
-  {
-    name: "23?",
-    aliases: "23ku 23??,
-    price: 500,
-    targetSell: 990,
-    category: "鈭? 銵??",
-    exclude: "?",
-    note: "?亦頂撠?嚗??犖蝎暹?嚗?鋆?憟銴脣??
-  },
-  {
-    name: "ICB",
-    aliases: "icb",
-    price: 500,
-    targetSell: 990,
-    category: "鈭? 銵??",
-    exclude: "?",
-    note: "?瑕憟唾?憟質都嚗正鋆?憟弁銵怒仆鋆??
-  },
-  {
-    name: "?芰?",
-    aliases: "?芰??jiyuku",
-    price: 600,
-    targetSell: 1200,
-    category: "鈭? 銵??",
-    exclude: "?",
-    note: "摰Ｙ黎憿?鞎瑁釭???寞?交憭芷???
-  },
-  {
-    name: "ZARA",
-    aliases: "zara",
-    price: 250,
-    targetSell: 590,
-    category: "鈭? 銵??",
-    exclude: "?",
-    note: "閰Ｗ?憭??銋?嚗?憭???鋆正鋆?甈曉???
-  },
-  {
-    name: "??敺瑟ㄝ",
-    aliases: "Kinloch Anderson KA",
-    price: 300,
-    targetSell: 690,
-    category: "鈭? ??,
-    exclude: "撖Ｗ",
-    note: "?桐辣???镼航‵?咱鋆皜穿??桅戊鋆?文???
-  }
-];
-
-const platformData = {
-  shopee: {
-    name: "?衣",
-    makeUrl: ({ brand, alias, category, price }) =>
-      `https://shopee.tw/search?keyword=${encodeURIComponent(`${brand} ${alias} ${category} ${price}`)}`
-  },
-  yahoo: {
-    name: "Yahoo",
-    makeUrl: ({ brand, alias, category }) =>
-      `https://tw.bid.yahoo.com/search/auction/product?p=${encodeURIComponent(`${brand} ${alias} ${category}`)}&refine=con_used&sort=price`
-  },
-  ruten: {
-    name: "?脣予",
-    makeUrl: ({ brand, alias, category, price }) =>
-      `https://www.ruten.com.tw/find/?q=${encodeURIComponent(`${brand} ${alias} ${category} ${price}`)}`
-  },
-  carousell: {
-    name: "??",
-    makeUrl: ({ brand, alias, category, price }) =>
-      `https://tw.carousell.com/search/${encodeURIComponent(`${brand} ${alias} ${category} ${price}`)}`
-  },
-  google: {
-    name: "Google",
-    makeUrl: ({ brand, alias, category, price, exclude }) => {
-      const excluded = exclude
-        .split(/\s+/)
-        .filter(Boolean)
-        .map((word) => `-${word}`)
-        .join(" ");
-      const terms = `${brand} ${alias} ${category} ${price}?誑銝?${excluded}`;
-      return `https://www.google.com/search?q=${encodeURIComponent(terms)}`;
-    }
-  }
-};
-
-const defaultMonitors = brandPresets.slice(0, 5).map((brand) => ({
-  brand: brand.name,
-  alias: brand.aliases,
-  price: brand.price,
-  targetSell: brand.targetSell,
-  category: brand.category,
-  exclude: brand.exclude,
-  platforms: ["shopee", "yahoo", "carousell", "google"],
-  note: brand.note,
-  createdAt: new Date().toISOString()
-}));
-
-const store = {
-  get(key, fallback) {
-    const raw = localStorage.getItem(key);
-    if (!raw) return fallback;
-    try {
-      return JSON.parse(raw);
-    } catch {
-      return fallback;
-    }
-  },
-  set(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-  }
-};
-
-const state = {
-  monitors: store.get("scout.monitors", defaultMonitors),
-  favorites: store.get("scout.favorites", []),
-  scans: store.get("scout.scans", [])
-};
-
-const $ = (selector) => document.querySelector(selector);
-const $ = (selector) => Array.from(document.querySelectorAll(selector));
-const currency = (value) => `${Math.round(Number(value) || 0)}`;
-
-function populateBrandPresets() {
-  $("#brandPresetInput").innerHTML = brandPresets
-    .map((brand, index) => `<option value="${index}">${brand.name}</option>`)
-    .join("");
-}
-
-function applyPreset(index) {
-  const preset = brandPresets[index];
-  if (!preset) return;
-  $("#brandInput").value = preset.name;
-  $("#aliasInput").value = preset.aliases;
-  $("#priceInput").value = preset.price;
-  $("#targetSellInput").value = preset.targetSell;
-  $("#categoryInput").value = preset.category;
-  $("#excludeInput").value = preset.exclude;
-  renderResultStrip();
-  updateMessage();
-}
-
-function getFormPayload() {
-  return {
-    brand: $("#brandInput").value.trim() || "a la sha",
-    alias: $("#aliasInput").value.trim(),
-    price: Number($("#priceInput").value || 300),
-    targetSell: Number($("#targetSellInput").value || 0),
-    category: $("#categoryInput").value,
-    exclude: $("#excludeInput").value.trim(),
-    platforms: $("input[name='platform']:checked").map((input) => input.value),
-    note: brandPresets.find((item) => item.name === $("#brandInput").value.trim())?.note || "",
-    createdAt: new Date().toISOString()
-  };
-}
-
-function makeLinks(payload) {
-  return payload.platforms.map((key) => ({
-    key,
-    name: platformData[key].name,
-    url: platformData[key].makeUrl(payload)
-  }));
-}
-
-function renderSummary() {
-  $("#monitorCount").textContent = state.monitors.length;
-  $("#favoriteCount").textContent = state.favorites.length;
-  const average = state.monitors.length
-    ? state.monitors.reduce((sum, item) => sum + Number(item.price || 0), 0) / state.monitors.length
-    : 0;
-  $("#averageBudget").textContent = currency(average);
-}
-
-function renderResultStrip(payload = getFormPayload()) {
-  const links = makeLinks(payload);
-  $("#resultStrip").innerHTML = links
-    .map((link) => `<a class="result-link" href="${link.url}" target="_blank" rel="noreferrer">${link.name}</a>`)
-    .join("");
-}
-
-function monitorLabel(monitor) {
-  return `${monitor.brand} / ${currency(monitor.price)}??/ ${monitor.category.replace("鈭? ", "")}`;
-}
-
-function renderMonitors() {
-  store.set("scout.monitors", state.monitors);
-  renderSummary();
-  const list = $("#monitorList");
-  if (!state.monitors.length) {
-    list.innerHTML = `<div class="empty">????扳?隞?/div>`;
-    return;
-  }
-
-  list.innerHTML = state.monitors
-    .map((monitor, index) => {
-      const firstUrl = makeLinks(monitor)[0]?.url || "#";
-      const platforms = monitor.platforms.map((key) => platformData[key].name).join("??);
-      const expected = monitor.targetSell ? ` / ?摯鞈?${currency(monitor.targetSell)}` : "";
-      return `
-        <article class="item">
-          <div>
-            <strong>${monitorLabel(monitor)}${expected}</strong>
-            <small>${platforms}${monitor.exclude ? ` / ? ${monitor.exclude}` : ""}${monitor.note ? ` / ${monitor.note}` : ""}</small>
-          </div>
-          <div class="item-actions">
-            <a href="${firstUrl}" target="_blank" rel="noreferrer" aria-label="??">GO</a>
-            <button type="button" data-load-monitor="${index}" aria-label="頛">LOAD</button>
-            <button type="button" data-scan="${index}" aria-label="??">ALL</button>
-            <button class="danger" type="button" data-delete-monitor="${index}" aria-label="?芷">X</button>
-          </div>
-        </article>
-      `;
-    })
-    .join("");
-}
-
-function renderFavorites() {
-  store.set("scout.favorites", state.favorites);
-  renderSummary();
-  const list = $("#favoriteList");
-  if (!state.favorites.length) {
-    list.innerHTML = `<div class="empty">?澆??????臭誑???ㄐ</div>`;
-    return;
-  }
-
-  list.innerHTML = state.favorites
-    .map((favorite, index) => {
-      const profit = Number(favorite.sell || 0) - Number(favorite.price || 0);
-      return `
-        <article class="item">
-          <div>
-            <strong>${favorite.title}</strong>
-            <small>??${currency(favorite.price)} / 鞈?${currency(favorite.sell)} / 蝎摯撌桅? ${currency(profit)}${favorite.url ? ` / ${favorite.url}` : ""}</small>
-          </div>
-          <div class="item-actions">
-            ${favorite.url ? `<a href="${favorite.url}" target="_blank" rel="noreferrer" aria-label="??">GO</a>` : ""}
-            <button class="danger" type="button" data-delete-favorite="${index}" aria-label="?芷">X</button>
-          </div>
-        </article>
-      `;
-    })
-    .join("");
-}
-
-function openMonitor(index) {
-  const monitor = state.monitors[index];
-  if (!monitor) return;
-  state.scans.unshift({ label: monitorLabel(monitor), at: new Date().toISOString() });
-  state.scans = state.scans.slice(0, 30);
-  store.set("scout.scans", state.scans);
-  loadMonitor(index);
-  renderResultStrip(monitor);
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function loadMonitor(index) {
-  const monitor = state.monitors[index];
-  if (!monitor) return;
-  $("#brandInput").value = monitor.brand;
-  $("#aliasInput").value = monitor.alias || "";
-  $("#priceInput").value = monitor.price;
-  $("#targetSellInput").value = monitor.targetSell || "";
-  $("#categoryInput").value = monitor.category;
-  $("#excludeInput").value = monitor.exclude || "";
-  $("input[name='platform']").forEach((input) => {
-    input.checked = monitor.platforms.includes(input.value);
-  });
-  renderResultStrip();
-  updateMessage();
-}
-
-function updateProfit() {
-  const buyCost = Number($("#buyCost").value || 0);
-  const sellPrice = Number($("#sellPrice").value || 0);
-  const extraCost = Number($("#extraCost").value || 0);
-  const feeRate = Number($("#feeRate").value || 0) / 100;
-  const fee = sellPrice * feeRate;
-  const profit = Math.round(sellPrice - buyCost - extraCost - fee);
-  $("#profitValue").textContent = currency(profit);
-  $("#profitNote").textContent = profit < 120 ? "?拇膜??" : profit < 250 ? "?臭誑皜祈岫" : "?澆??芸???;
-}
-
-function updateScore() {
-  const buy = Number($("#scoreBuy").value || 0);
-  const sell = Number($("#scoreSell").value || 0);
-  const margin = sell > 0 ? Math.max(0, Math.min(30, ((sell - buy) / sell) * 45)) : 0;
-  const condition = Number($("#scoreCondition").value);
-  const demand = Number($("#scoreDemand").value);
-  const size = Number($("#scoreSize").value);
-  const style = Number($("#scoreStyle").value);
-  const score = Math.round(Math.min(100, margin + condition + demand + size + style));
-  $("#scoreValue").textContent = score;
-  $("#scoreLabel").textContent = score >= 82 ? "?芸??? : score >= 68 ? "?臭誑?? : score >= 52 ? "憯?" : "??閬";
-}
-
-function buildMessage() {
-  const { brand, price } = getFormPayload();
-  return `雿末嚗????${brand} 鈭?銵???唾??辣???憒?銵??銋暹楊????憿舀情瞍祆??湔?嚗頝?鞈潸眺?憭辣銝韏瑕葆嚗靘踹鼠?? ${price} ?誑?扳??孵??銋隢?鋆????偕撖豢????菔??改?雓??;
-}
-
-function updateMessage() {
-  $("#messageText").value = buildMessage();
-}
-
-function exportData() {
-  const payload = {
-    version: 2,
-    exportedAt: new Date().toISOString(),
-    monitors: state.monitors,
-    favorites: state.favorites,
-    scans: state.scans
-  };
-  $("#dataBox").value = JSON.stringify(payload, null, 2);
-}
-
-function importData() {
-  const raw = $("#dataBox").value.trim();
-  if (!raw) return;
-  const payload = JSON.parse(raw);
-  state.monitors = Array.isArray(payload.monitors) ? payload.monitors : state.monitors;
-  state.favorites = Array.isArray(payload.favorites) ? payload.favorites : state.favorites;
-  state.scans = Array.isArray(payload.scans) ? payload.scans : state.scans;
-  renderMonitors();
-  renderFavorites();
-  exportData();
-}
-
-function notify(text) {
-  if (!("Notification" in window) || Notification.permission !== "granted") return;
-  new Notification("?疏銵??", { body: text });
-}
-
-function bindEvents() {
-  $("#brandPresetInput").addEventListener("change", (event) => applyPreset(Number(event.target.value)));
-
-  $("#searchForm").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const payload = getFormPayload();
-    renderResultStrip(payload);
-    const firstLink = makeLinks(payload)[0];
-    if (firstLink) window.open(firstLink.url, "_blank", "noreferrer");
-  });
-
-  $("#saveMonitorButton").addEventListener("click", () => {
-    const payload = getFormPayload();
-    state.monitors.unshift(payload);
-    renderMonitors();
-    exportData();
-    notify(`撌脣???${monitorLabel(payload)}`);
-  });
-
-  $("#scanAllButton").addEventListener("click", () => {
-    if (!state.monitors.length) return;
-    loadMonitor(0);
-    renderResultStrip(state.monitors[0]);
-    notify("撌脰??亦洵銝??扳?隞嗚?敺??孵像?唳???????);
-  });
-
-  $("#notifyButton").addEventListener("click", async () => {
-    if (!("Notification" in window)) return;
-    const permission = await Notification.requestPermission();
-    if (permission === "granted") notify("??撌脤??Phone ?閬?蝬脩??銝餌?Ｗ?嚗??頛帘??);
-  });
-
-  $("#monitorList").addEventListener("click", (event) => {
-    const scanIndex = event.target.dataset.scan;
-    const loadIndex = event.target.dataset.loadMonitor;
-    const deleteIndex = event.target.dataset.deleteMonitor;
-    if (scanIndex !== undefined) openMonitor(Number(scanIndex));
-    if (loadIndex !== undefined) loadMonitor(Number(loadIndex));
-    if (deleteIndex !== undefined) {
-      state.monitors.splice(Number(deleteIndex), 1);
-      renderMonitors();
-      exportData();
-    }
-  });
-
-  $("#favoriteForm").addEventListener("submit", (event) => {
-    event.preventDefault();
-    state.favorites.unshift({
-      title: $("#favoriteTitle").value.trim() || "?芸????,
-      price: Number($("#favoritePrice").value || 0),
-      sell: Number($("#favoriteSell").value || 0),
-      url: $("#favoriteUrl").value.trim(),
-      createdAt: new Date().toISOString()
-    });
-    event.currentTarget.reset();
-    renderFavorites();
-    exportData();
-  });
-
-  $("#favoriteList").addEventListener("click", (event) => {
-    const deleteIndex = event.target.dataset.deleteFavorite;
-    if (deleteIndex !== undefined) {
-      state.favorites.splice(Number(deleteIndex), 1);
-      renderFavorites();
-      exportData();
-    }
-  });
-
-  $("#clearFavoritesButton").addEventListener("click", () => {
-    state.favorites = [];
-    renderFavorites();
-    exportData();
-  });
-
-  $(".tab").forEach((tab) => {
-    tab.addEventListener("click", () => {
-      $(".tab").forEach((item) => item.classList.remove("active"));
-      $(".tab-panel").forEach((panel) => panel.classList.remove("active"));
-      tab.classList.add("active");
-      $(`#${tab.dataset.tab}`).classList.add("active");
-    });
-  });
-
-  ["buyCost", "sellPrice", "extraCost", "feeRate"].forEach((id) => {
-    $(`#${id}`).addEventListener("input", updateProfit);
-  });
-
-  ["scoreBuy", "scoreSell", "scoreCondition", "scoreDemand", "scoreSize", "scoreStyle"].forEach((id) => {
-    $(`#${id}`).addEventListener("input", updateScore);
-    $(`#${id}`).addEventListener("change", updateScore);
-  });
-
-  ["brandInput", "aliasInput", "priceInput", "targetSellInput", "categoryInput", "excludeInput"].forEach((id) => {
-    $(`#${id}`).addEventListener("input", () => {
-      renderResultStrip();
-      updateMessage();
-    });
-  });
-
-  $("input[name='platform']").forEach((input) => {
-    input.addEventListener("change", renderResultStrip);
-  });
-
-  $("#refreshMessageButton").addEventListener("click", updateMessage);
-  $("#copyMessageButton").addEventListener("click", async () => {
-    await navigator.clipboard.writeText($("#messageText").value);
-    notify("霅啣??撌脰?鋆?);
-  });
-
-  $("#exportButton").addEventListener("click", exportData);
-  $("#importButton").addEventListener("click", importData);
-  $("#resetButton").addEventListener("click", () => {
-    state.monitors = defaultMonitors;
-    state.favorites = [];
-    state.scans = [];
-    renderMonitors();
-    renderFavorites();
-    exportData();
-  });
-}
-
-function init() {
-  populateBrandPresets();
-  renderResultStrip();
-  renderMonitors();
-  renderFavorites();
-  updateProfit();
-  updateScore();
-  updateMessage();
-  exportData();
-  bindEvents();
-
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.getRegistrations().then((registrations) => {
-      registrations.forEach((registration) => registration.unregister());
-    });
-  }
-}
-
-init();
-
-</script>
+    <script src="app.js"></script>
   </body>
 </html>
-

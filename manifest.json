@@ -1,0 +1,16 @@
+{
+  "name": "搜貨衣櫃",
+  "short_name": "搜貨衣櫃",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f4ef",
+  "theme_color": "#f7f4ef",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
