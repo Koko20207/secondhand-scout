@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f7f4ef">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="搜貨衣櫃">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>搜貨衣櫃</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Secondhand Scout</p>
+          <h1>搜貨衣櫃</h1>
+        </div>
+        <button class="icon-button" id="notifyButton" type="button" aria-label="開啟提醒" title="開啟提醒">!</button>
+      </header>
+
+      <section class="summary-band" aria-label="今日摘要">
+        <div>
+          <span>監控</span>
+          <strong id="monitorCount">0</strong>
+        </div>
+        <div>
+          <span>收藏</span>
+          <strong id="favoriteCount">0</strong>
+        </div>
+        <div>
+          <span>平均上限</span>
+          <strong id="averageBudget">$0</strong>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <form class="search-panel" id="searchForm">
+          <div class="form-grid">
+            <label>
+              <span>品牌建議</span>
+              <select id="brandPresetInput" name="brandPreset"></select>
+            </label>
+            <label>
+              <span>品牌</span>
+              <input id="brandInput" name="brand" type="text" value="a la sha" autocomplete="off">
+            </label>
+            <label>
+              <span>同義字</span>
+              <input id="aliasInput" name="alias" type="text" value="阿財 alasha" autocomplete="off">
+            </label>
+            <label>
+              <span>最高價</span>
+              <input id="priceInput" name="price" type="number" min="0" step="10" value="300">
+            </label>
+            <label>
+              <span>預估賣價</span>
+              <input id="targetSellInput" name="targetSell" type="number" min="0" step="10" value="690">
+            </label>
+            <label>
+              <span>品項</span>
+              <select id="categoryInput" name="category">
+                <option value="二手 衣服">二手衣服</option>
+                <option value="二手 上衣">上衣</option>
+                <option value="二手 洋裝">洋裝</option>
+                <option value="二手 外套">外套</option>
+                <option value="二手 裙子">裙子</option>
+                <option value="二手 包">包包</option>
+              </select>
+            </label>
+            <label>
+              <span>排除</span>
+              <input id="excludeInput" name="exclude" type="text" value="童裝 全新高價" autocomplete="off">
+            </label>
+          </div>
+
+          <div class="platforms" aria-label="平台">
+            <label><input type="checkbox" name="platform" value="shopee" checked>蝦皮</label>
+            <label><input type="checkbox" name="platform" value="yahoo" checked>Yahoo</label>
+            <label><input type="checkbox" name="platform" value="ruten" checked>露天</label>
+            <label><input type="checkbox" name="platform" value="carousell" checked>旋轉</label>
+            <label><input type="checkbox" name="platform" value="google" checked>Google</label>
+          </div>
+
+          <div class="actions">
+            <button class="primary" type="submit">搜尋全部</button>
+            <button class="secondary" id="saveMonitorButton" type="button">加入監控</button>
+          </div>
+        </form>
+
+        <section class="result-strip" id="resultStrip" aria-live="polite"></section>
+      </section>
+
+      <nav class="tabs" aria-label="功能">
+        <button class="tab active" data-tab="monitors" type="button">監控</button>
+        <button class="tab" data-tab="favorites" type="button">收藏</button>
+        <button class="tab" data-tab="score" type="button">評分</button>
+        <button class="tab" data-tab="profit" type="button">利潤</button>
+        <button class="tab" data-tab="message" type="button">議價</button>
+        <button class="tab" data-tab="data" type="button">資料</button>
+      </nav>
+
+      <section class="tab-panel active" id="monitors">
+        <div class="section-head">
+          <h2>監控清單</h2>
+          <button class="text-button" id="scanAllButton" type="button">全部掃描</button>
+        </div>
+        <div class="list" id="monitorList"></div>
+      </section>
+
+      <section class="tab-panel" id="favorites">
+        <div class="section-head">
+          <h2>收藏商品</h2>
+          <button class="text-button" id="clearFavoritesButton" type="button">清空</button>
+        </div>
+        <form class="mini-form" id="favoriteForm">
+          <input id="favoriteTitle" type="text" placeholder="商品名稱">
+          <input id="favoritePrice" type="number" min="0" step="10" placeholder="價格">
+          <input id="favoriteSell" type="number" min="0" step="10" placeholder="預估售價">
+          <input id="favoriteUrl" type="url" placeholder="網址">
+          <button type="submit">存</button>
+        </form>
+        <div class="list" id="favoriteList"></div>
+      </section>
+
+      <section class="tab-panel" id="score">
+        <h2>收貨評分</h2>
+        <div class="score-grid">
+          <label><span>進貨價</span><input id="scoreBuy" type="number" min="0" value="250"></label>
+          <label><span>預估售價</span><input id="scoreSell" type="number" min="0" value="690"></label>
+          <label><span>衣況</span><select id="scoreCondition"><option value="30">近新</option><option value="22">乾淨</option><option value="12">普通</option><option value="0">需整理</option></select></label>
+          <label><span>需求</span><select id="scoreDemand"><option value="28">高</option><option value="20">中</option><option value="10">低</option></select></label>
+          <label><span>尺碼</span><select id="scoreSize"><option value="16">M/L/XL</option><option value="10">F</option><option value="7">S/XS</option></select></label>
+          <label><span>款式</span><select id="scoreStyle"><option value="16">外套/洋裝</option><option value="12">襯衫/裙褲</option><option value="7">普通上衣</option></select></label>
+        </div>
+        <div class="score-box">
+          <strong id="scoreValue">0</strong>
+          <span id="scoreLabel">先看照片</span>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="profit">
+        <h2>利潤試算</h2>
+        <div class="calculator">
+          <label><span>進貨</span><input id="buyCost" type="number" min="0" value="200"></label>
+          <label><span>售價</span><input id="sellPrice" type="number" min="0" value="590"></label>
+          <label><span>運費/清潔</span><input id="extraCost" type="number" min="0" value="60"></label>
+          <label><span>平台費%</span><input id="feeRate" type="number" min="0" value="6"></label>
+        </div>
+        <div class="profit-box">
+          <span>預估淨利</span>
+          <strong id="profitValue">$0</strong>
+          <small id="profitNote"></small>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="message">
+        <h2>議價文字</h2>
+        <textarea id="messageText" rows="7"></textarea>
+        <div class="actions">
+          <button class="primary" id="copyMessageButton" type="button">複製</button>
+          <button class="secondary" id="refreshMessageButton" type="button">重寫</button>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="data">
+        <div class="section-head">
+          <h2>資料備份</h2>
+          <button class="text-button" id="exportButton" type="button">匯出</button>
+        </div>
+        <textarea id="dataBox" rows="8" placeholder="匯出的資料會放在這裡"></textarea>
+        <div class="actions">
+          <button class="primary" id="importButton" type="button">匯入</button>
+          <button class="secondary" id="resetButton" type="button">恢復範例</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
